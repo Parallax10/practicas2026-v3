@@ -10,25 +10,24 @@ export default function Motos(){
     useEffect(()=>{
         dispatch(fetchMotos())
     },[])
-    const {items} = useAppSelector(state=>state.motos)
+    const {items,template} = useAppSelector(state=>state.motos)
+    const tarjetaHTML=(moto:any,htmlBase:string)=>{
+        if (!htmlBase) return { __html: "" };
+        const htmlFinal=htmlBase
+        .replace(/{{url}}/g,moto.url)
+        .replace(/{{thumbnail}}/g,moto.thumbnail)
+        .replace(/{{title}}/g,moto.title)
+        .replace(/{{price}}/g,moto.price)
+        .replace(/{{classLista}}/g,styles.lista)
+        .replace(/{{classImagen}}/g,styles.imagen)
+        .replace(/{{classPrecio}}/g,styles.precio)
+        .replace(/{{classNombre}}/g,styles.nombre)
+        return { __html: htmlFinal };
+    }
     return(
         <div className={styles.maps}>
             {items.map(moto=>
-                <div key={moto.id} className={styles.item}>
-                        <ul className={styles.lista}>
-                            <li className={styles.imagen}>
-                                <Link href={`/detallesMotos/${moto.url}`}>
-                                    <img src={moto.thumbnail}></img>
-                                </Link>
-                            </li>
-                            <li className={styles.nombre}>
-                                <p>{moto.title}</p>
-                            </li>
-                            <li className={styles.precio}>
-                                <p>{moto.price}€</p>
-                            </li>
-                        </ul>
-                </div>
+                <div key={moto.id} className={styles.item} dangerouslySetInnerHTML={tarjetaHTML(moto,template)}/>
             )}
         </div>
     )

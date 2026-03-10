@@ -47,7 +47,7 @@ return (
             <button onClick={()=>cerrarSesion()}>Cerrar Sesión</button>
         </div>
     :<Link href={"http://localhost:3000/login"} className={styles.link}>{t("inicioSesion")}</Link>}
-    
+    <Link href={"/catalogues"} className={styles.link}>Catalogo</Link>
     <button onClick={() => cambiarIdioma('es')}className={i18n.language === 'es' ? styles.active : styles.btn}>ES</button>
     <button onClick={() => cambiarIdioma('en')}className={i18n.language === 'en' ? styles.active : styles.btn}>EN</button>
 </div>

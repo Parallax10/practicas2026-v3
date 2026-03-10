@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export const fetchMotos = createAsyncThunk(
@@ -12,12 +12,14 @@ export const fetchMotos = createAsyncThunk(
 
 interface MotoState {
     items: any[];
+    template: any | null;
     status: 'idle' | 'loading' | 'failed';
     error: string | null;
 }
 
 const initialState: MotoState = {
     items: [],
+    template: null,
     status: 'idle',
     error: null,
 };
@@ -33,7 +35,8 @@ export const motoSlice = createSlice({
         })
         .addCase(fetchMotos.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.items = action.payload;
+        state.items = action.payload.items;
+        state.template = action.payload.template;
         })
         .addCase(fetchMotos.rejected, (state, action) => {
         state.status = 'failed';

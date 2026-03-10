@@ -1,11 +1,32 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-	res.status(200).json(
-		motos.filter((moto) => {
-			if (req.query.url) return moto.url === req.query.url;
-			return true;
-		})
-	);
+	const filteredMotos = motos.filter((moto) => {
+		if (req.query.url) return moto.url === req.query.url;
+		return true;
+	});
+
+	
+	const templateHTML = `
+		<ul class="{{classLista}}">
+			<li class="{{classImagen}}">
+				<a href="/detallesMotos/{{url}}">
+					<img src="{{thumbnail}}" alt="{{title}}" />
+				</a>
+			</li>
+			<li class="{{classNombre}}">
+				<p>{{title}}</p>
+			</li>
+			<li class="{{classPrecio}}">
+				<p>{{price}}€</p>
+			</li>
+		</ul>
+	`;
+
+	res.status(200).json({
+		template: templateHTML,
+		items: filteredMotos
+	});
 }
 
 const motos = [
