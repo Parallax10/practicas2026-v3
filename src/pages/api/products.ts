@@ -1,11 +1,36 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-	res.status(200).json(
-		products.filter((product) => {
-			if (req.query.url) return product.url === req.query.url;
-			return true;
-		})
-	);
+	const filteredProducts = products.filter((product) => {
+		if (req.query.url) return product.url === req.query.url;
+		return true;
+	});
+	const htmlTemplate = `
+		<div class="card-content">
+			<div class="galeria-hover">
+				{{galleryHTML}}
+			</div>
+
+			<div class="imagenProducto">
+				<a href="/detallesProductos/{{url}}">
+					<img src="{{thumbnail}}" alt="{{title}}">
+				</a>
+			</div>
+			
+			<h2 class="nombre">{{title}}</h2>
+			<p class="precio">{{price}} €</p>
+			
+			<p class="motoDetails">
+				<strong>Marca:</strong> {{brand}} | <strong>Categoría:</strong> {{category}}
+			</p>
+			
+		</div>
+	`;
+
+	res.status(200).json({
+		template: htmlTemplate,
+		items: filteredProducts
+	});
 }
 
 const products = [

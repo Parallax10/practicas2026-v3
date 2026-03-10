@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
+
 export const fetchProductos = createAsyncThunk(
     'productos/fetchAll',
     async () => {
@@ -12,12 +13,14 @@ export const fetchProductos = createAsyncThunk(
 
 interface ProductoState {
     items: any[];
+    template: any | null;
     status: 'idle' | 'loading' | 'failed';
     error: string | null;
 }
 
 const initialState: ProductoState = {
     items: [],
+    template: null,
     status: 'idle',
     error: null,
 };
@@ -33,7 +36,8 @@ export const productoSlice = createSlice({
         })
         .addCase(fetchProductos.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.items = action.payload; 
+        state.items = action.payload.items; 
+        state.template=action.payload.template
         })
         .addCase(fetchProductos.rejected, (state, action) => {
         state.status = 'failed';
