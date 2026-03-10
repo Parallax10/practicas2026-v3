@@ -1,0 +1,176 @@
+:global(html),
+:global(body), 
+:global(#root) {
+    height: 100%; 
+    margin: 0; 
+}
+.layout { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+.content { 
+    flex: 1; 
+}
+
+/*NAVBAR Y FOOTER*/
+.cont {
+    background-color: #d1d1d1;
+    min-height: 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 50px;
+}
+.foot {
+    background-color: #d1d1d1;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imagen {
+    margin-left: 25px; 
+}
+.text { 
+    color: black; 
+    font-weight: bold; 
+    font-size: large; 
+}
+.link { 
+    color: black;
+    font-weight: bold; 
+    font-size: large; 
+}
+
+/*TARJETAS (Motos y Productos) */
+.maps { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: auto; 
+    gap: 10px; 
+}
+.item {
+    justify-items: center;
+    min-height: 150px;
+    min-width: 500px;
+    padding: 50px;
+    background-color: #534f4f;
+    color: #ededed;
+}
+.item:hover { 
+    background-color: #969191; 
+}
+.imagenProducto { 
+    text-align: center; 
+    justify-items: center; 
+    justify-content: center; 
+    display: flex; 
+    width: 100%; 
+}
+.nombre { 
+    text-align: center; 
+}
+.precio { 
+    color: greenyellow; 
+    text-align: center; 
+    font-weight: bold; 
+}
+.lista { 
+    list-style: none; 
+}
+
+/* VISTA DE DETALLES */
+.mapsDetalle { 
+    display: flex; 
+    flex-direction: column; 
+    justify-self: center; 
+    min-width: 550px; 
+}
+.nombreDetalle { 
+    margin-top: 50px; 
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 15px; 
+}
+.marcaDetalle { 
+    margin-top: 25px; 
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 13px; }
+.precioDetalle { 
+    color: rgb(150, 201, 74); 
+    text-align: center; 
+    font-weight: bold;
+    margin-top: 15px; 
+}
+.imagenesDetalle { 
+    cursor: pointer; 
+    margin-top: 5%; 
+    display: flex; 
+    flex-direction: row; 
+    max-height: 400px; 
+}
+
+@media (min-width: 768px) {
+    .imagenesDetalle {
+        position: absolute; 
+        margin-top: 90px;
+        display: flex; 
+        flex-direction: column;
+        justify-content: left ;
+        max-width: 250px;
+        margin-left: -160px; 
+    }
+    .mapsDetalle { display: flex;
+        flex-direction: column;
+        justify-self: center;
+        min-width: 550px; 
+    }
+    .nombreDetalle { 
+        margin-top: 50px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px; 
+    }
+    .marcaDetalle { margin-top: 25px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 25px; 
+    }
+    .precioDetalle { 
+        color: rgb(150, 201, 74);
+        text-align: center;
+        font-weight: bold;
+        margin-top: 15px; 
+    }
+}
+.lightbox { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.8); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    .arrow, .cerrar { 
+        position: absolute; 
+        background: none; 
+        border: none; 
+        color: white; 
+        font-size: 40px; 
+        cursor: pointer; 
+    }
+    .izquierda { 
+        left: 20px; 
+        margin: 5px; 
+    }
+    .derecha { 
+        right: 20px; 
+        margin: 5px; 
+    }
+    .cerrar { 
+        top: 20px; 
+        right: 20px; 
+    }
+}
