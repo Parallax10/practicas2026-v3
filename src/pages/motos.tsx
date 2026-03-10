@@ -24,11 +24,22 @@ export default function Motos(){
         .replace(/{{classNombre}}/g,styles.nombre)
         return { __html: htmlFinal };
     }
-    return(
+    
+    return (
         <div className={styles.maps}>
-            {items.map(moto=>
-                <div key={moto.id} className={styles.item} dangerouslySetInnerHTML={tarjetaHTML(moto,template)}/>
-            )}
+            {items.map(moto => (
+                <div key={moto.id} className={styles.item}>
+                    <div dangerouslySetInnerHTML={tarjetaHTML(moto, template)} style={{ width: '100%' }} />
+                    {moto.images && moto.images.length > 0 && (
+                        <div className="galeria-hover">
+                            {moto.images.map((img: string, index: number) => (
+                                <img key={index} src={img} alt={`foto extra ${index}`} />
+                            ))}
+                        </div>
+                    )}
+                    
+                </div>
+            ))}
         </div>
-    )
+    );
 }

@@ -49,9 +49,46 @@
     min-height: 150px;
     min-width: 500px;
     padding: 50px;
-    background-color: #8f8a8ac7;
+    background-color: #8f8a8ac7; /* Recuerda dejar el color que corresponda a cada tema */
     color: #ededed;
+    position: relative;
+
+    &:hover {
+        :global(.galeria-hover) {
+            display: flex;
+        }
+    }
+
+    
+    :global(.galeria-hover) {
+        display: none; 
+        position: absolute;
+        bottom: 100%; 
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95); 
+        padding: 10px;
+        border-radius: 8px;
+        z-index: 10;
+        flex-wrap: wrap;
+        gap: 5px;
+        box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        justify-content: center;
+
+        img {
+            width: calc(33.33% - 5px); 
+            height: 80px; 
+            border-radius: 4px;
+            object-fit: cover;
+        }
+    }
 }
+
+.item:hover {
+    background-color: #8f8a8a;
+}
+
+
 .item:hover {
     background-color: #8f8a8a;
 }
