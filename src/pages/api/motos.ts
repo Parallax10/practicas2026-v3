@@ -8,20 +8,30 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 	
 	const templateHTML = `
-		<ul class="{{classLista}}">
-			<li class="{{classImagen}}">
-				<a href="/detallesMotos/{{url}}">
-					<img src="{{thumbnail}}" alt="{{title}}" />
-				</a>
-			</li>
-			<li class="{{classNombre}}">
-				<p>{{title}}</p>
-			</li>
-			<li class="{{classPrecio}}">
-				<p>{{price}}€</p>
-			</li>
-		</ul>
-	`;
+		<div class="card-content">
+            <div class="galeria-hover">
+                {{galleryHTML}}
+            </div>
+
+            <div class="imagenProducto">
+                <a href="/detallesMotos/{{url}}">
+                    <img src="{{thumbnail}}" alt="{{title}}">
+                </a>
+            </div>
+            <div>
+				
+			</div>
+            <h2 class="nombre">{{title}}</h2>
+            <p class="precio">{{price}} €</p>
+            
+            <p class="motoDetails">
+                <strong>Motor:</strong> {{engine}} | <strong>Año:</strong> {{year}}
+            </p>
+            <p class="motoDetails">
+                <strong>Carnet:</strong> {{license}} | <strong>Estado:</strong> {{type}}
+            </p>
+        </div>
+    `;
 
 	res.status(200).json({
 		template: templateHTML,
