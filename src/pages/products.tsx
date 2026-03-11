@@ -3,18 +3,22 @@ import { useState, useEffect } from "react";
 import { themeStyles as styles } from '../config/index';
 import { useAppSelector, useAppDispatch } from "./store/hooks";
 import { fetchProductos } from "./store/slices/prodSlice";
-import { template } from "handlebars";
-import { Link } from "react-router-dom";
+import { alternarFavoritos } from "./store/slices/favsSlice";
 
 export default function products(){
     const [selectedImages, setSelectedImages] = useState<{ [key: string]: string }>({});
+
+    const favoritosRaw = useAppSelector((state:any) => state.favoritos?.value || []);
+    const favoritos = favoritosRaw.map(String);
+    
     const dispatch=useAppDispatch();
     useEffect(()=>{
         dispatch(fetchProductos())
     },[])
 
     const {items,template}=useAppSelector(state=>state.products)
-        const tarjetaHTML=(producto:any,htmlBase:string)=>{
+    
+    const tarjetaHTML=(producto:any,htmlBase:string)=>{
         const currentMainImage = selectedImages[producto.id] || producto.thumbnail;
         const galleryHTML = producto.images && producto.images.length > 0
         ? producto.images.map((img: string) => `<img src="${img}" alt="thumb" />`).join('')
@@ -48,6 +52,9 @@ export default function products(){
                                 ))}
                             </div>
                         )}
+                        <button className={styles.btnFavorito} onClick={() => dispatch(alternarFavoritos(String(producto.id)))}>
+                            {favoritos.includes(String(producto.id))?"❤️":"🤍"}
+                        </button>
                 </div>
             )}
         </div>

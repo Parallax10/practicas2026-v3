@@ -4,9 +4,14 @@ import Link from "next/link";
 import { themeStyles as styles } from '../config/index';
 import { fetchMotos } from "./store/slices/motoSlice";
 import { useAppSelector, useAppDispatch } from "./store/hooks";
+import { alternarCarrito } from "./store/slices/carritoSlice";
 
 export default function Motos(){
     const [selectedImages, setSelectedImages] = useState<{ [key: string]: string }>({});
+
+    const carritoRaw=useAppSelector((state:any)=>state.carrito?.value || [])
+    const carrito=carritoRaw.map(String)
+
     const dispatch = useAppDispatch();
     useEffect(()=>{
         dispatch(fetchMotos())
@@ -51,7 +56,9 @@ export default function Motos(){
                             ))}
                         </div>
                     )}
-                    
+                    <button className={styles.btnFavorito} onClick={() => dispatch(alternarCarrito(String(moto.id)))}>
+                        {carrito.includes(String(moto.id))?"🛒":"🛍️"}
+                    </button>
                 </div>
             ))}
         </div>
