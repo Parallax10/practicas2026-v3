@@ -6,16 +6,16 @@ import { fetchProductos } from "./store/slices/prodSlice";
 import { alternarFavoritos } from "./store/slices/favsSlice";
 import { ProductoItem } from "../components/ProductoItem";
 
-
-
 export default function products(){
     const favoritosRaw = useAppSelector((state:any) => state.favoritos?.value || []);
     const favoritos = favoritosRaw.map(String);
     
     const dispatch=useAppDispatch();
+
     useEffect(()=>{
         dispatch(fetchProductos())
     },[])
+
     const actualizarFavoritos = useCallback((id: string) => {
             dispatch(alternarFavoritos(id));
         }, []);

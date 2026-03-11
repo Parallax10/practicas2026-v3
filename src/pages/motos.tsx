@@ -16,12 +16,11 @@ export default function Motos(){
         dispatch(fetchMotos())
     },[])
 
-    const {items,template} = useAppSelector(state=>state.motos)
-    
     const actualizarCarrito = useCallback((id: string) => {
         dispatch(alternarCarrito(id));
     }, []);
 
+    const {items,template} = useAppSelector(state=>state.motos)
     return (
         <div className={styles.maps}>
             {items.map((moto:any) => (
