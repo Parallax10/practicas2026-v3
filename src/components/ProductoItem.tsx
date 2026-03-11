@@ -4,7 +4,7 @@ import { useState } from "react";
 import { themeStyles as styles } from '../config/index';
 import Handlebars from "handlebars";
 
-export const ProductoItem=memo(({producto,template,isInFavs,onToggle}:any)=>{
+export const ProductoItem=memo(({producto,template,isActive,onToggle,iconActive,iconInactive}:any)=>{
     const [imagenActual, setImagenActual] = useState(producto.thumbnail);
     
     const tarjetaHTML=(producto:any,htmlBase:string)=>{
@@ -13,15 +13,14 @@ export const ProductoItem=memo(({producto,template,isInFavs,onToggle}:any)=>{
         ? producto.images.map((img: string) => `<img src="${img}" alt="thumb" />`).join('')
         : '';
         if (!htmlBase) return { __html: "" };
-        const htmlFinal=htmlBase
-        .replace(/{{url}}/g, producto.url)
-        .replace(/{{thumbnail}}/g, imagenActual)
-        .replace(/{{title}}/g, producto.title)
-        .replace(/{{price}}/g, producto.price.toString())
-        .replace(/{{brand}}/g, producto.brand.name)
-        .replace(/{{category}}/g, producto.categories.name.toString())
-        .replace(/{{galleryHTML}}/g, galleryHTML);
-        return { __html: htmlFinal };
+        const compilarTemplate = Handlebars.compile(htmlBase);
+        const contexto={
+            ...producto,
+            thumbnail:imagenActual,
+            galleryHTML:new Handlebars.SafeString(galleryHTML)
+        };
+
+        return { __html: compilarTemplate(contexto) };
     }
 
     return(
@@ -35,7 +34,7 @@ export const ProductoItem=memo(({producto,template,isInFavs,onToggle}:any)=>{
                     </div>
                 )}
                 <button className={styles.btnFavorito} onClick={() => onToggle((String(producto.id)))}>
-                    {isInFavs?"❤️":"🤍"}
+                    {isActive?iconActive:iconInactive}
                 </button>
         </div>
     )

@@ -21,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 			<p class="precio">{{price}} €</p>
 			
 			<p class="motoDetails">
-				<strong>Marca:</strong> {{brand}} | <strong>Categoría:</strong> {{category}}
+				<strong>Marca:</strong> {{brand.name}} | <strong>Categoría:</strong> {{categories.name}}
 			</p>
 			
 		</div>

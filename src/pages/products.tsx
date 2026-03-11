@@ -18,7 +18,8 @@ export default function products(){
     },[])
     const actualizarFavoritos = useCallback((id: string) => {
             dispatch(alternarFavoritos(id));
-        }, [dispatch]);
+        }, []);
+
     const {items,template}=useAppSelector(state=>state.products)
     return(
         <div className={styles.maps}>
@@ -26,9 +27,11 @@ export default function products(){
                 <ProductoItem
                 key={producto.id}
                 producto={producto}
-                isInFavs={favoritos.includes((String(producto.id)))}
+                isActive={favoritos.includes((String(producto.id)))}
                 template={template}
                 onToggle={actualizarFavoritos}
+                iconActive="❤️"
+                iconInactive="🤍"
                 />
             )}
         </div>
