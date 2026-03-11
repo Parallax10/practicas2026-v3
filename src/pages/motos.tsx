@@ -55,7 +55,7 @@ export default function Motos(){
 
     const {items,template} = useAppSelector(state=>state.motos)
     
-    const handleToggleCarrito = useCallback((id: string) => {
+    const actualizarCarrito = useCallback((id: string) => {
         dispatch(alternarCarrito(id));
     }, [dispatch]);
 
@@ -67,7 +67,7 @@ export default function Motos(){
                     moto={moto} 
                     template={template}
                     isInCart={carrito.includes(String(moto.id))}
-                    onToggle={handleToggleCarrito}
+                    onToggle={actualizarCarrito}
                 />
             ))}
         </div>
