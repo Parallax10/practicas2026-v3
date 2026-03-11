@@ -8,6 +8,7 @@ import { alternarCarrito } from "./store/slices/carritoSlice";
 const MotoItem =memo(({moto,template,isInCart,onToggle}:any)=>{
     const [imagenActual, setImagenActual] = useState(moto.thumbnail);
     const tarjetaHTML=(moto:any,htmlBase:string)=>{
+        console.log("se cargo la moto",moto.id)
         const galleryHTML = moto.images && moto.images.length > 0
             ? moto.images.map((img: string) => `<img src="${img}" alt="thumb" />`).join('')
             : '';
@@ -26,18 +27,19 @@ const MotoItem =memo(({moto,template,isInCart,onToggle}:any)=>{
     }
         
     return(
-        <div className={styles.item}>
+        <div className={styles.item} key={moto.id}>
                     <div dangerouslySetInnerHTML={tarjetaHTML(moto, template)} style={{ width: '100%' }} />
                     {moto.images && moto.images.length > 0 && (
                         <div className="galeria-hover">
                             {moto.images.map((img: string, index: number) => (
-                                <img onClick={() => setImagenActual(img)} />
+                                <img onClick={() => setImagenActual(img)} src={img} key={index} />
                             ))}
                         </div>
                     )}
                     <button className={styles.btnFavorito} onClick={() => onToggle(String(moto.id))}>
                         {isInCart?"🛒":"🛍️"}
                     </button>
+                    
                 </div>
     )
 })
